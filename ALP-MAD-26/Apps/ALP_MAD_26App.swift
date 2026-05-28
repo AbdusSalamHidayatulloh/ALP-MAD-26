@@ -5,13 +5,16 @@
 //  Created by student on 28/05/26.
 //
 
+
 import SwiftUI
+import SwiftData
 
 @main
 struct ALP_MAD_26App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
         }
+        .modelContainer(for: [ShowerSession.self, HardwareProfile.self]) 
     }
 }
