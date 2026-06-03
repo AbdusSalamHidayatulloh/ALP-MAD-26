@@ -10,11 +10,24 @@ import SwiftUI
 import SwiftData
 
 @main
-struct ALP_MAD_26App: App {
+struct DropWatchApp: App {
+    // This looks in the device's UserDefaults.
+    // It defaults to 'false' on a fresh install.
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            DashboardView()
+            // Our Routing Logic
+            if hasCompletedOnboarding {
+                // If they finished setup, take them to the main app
+                DashboardView()
+            } else {
+                // If it is their first time, instantly show onboarding
+                HardwareOnboardingView()
+            }
         }
-        .modelContainer(for: [ShowerSession.self, HardwareProfile.self]) 
+        // CRITICAL: This injects your local database into the entire app.
+        // Without this, the app will crash when they tap "Get Started"!
+        .modelContainer(for: [HardwareProfile.self, ShowerSession.self])
     }
 }
