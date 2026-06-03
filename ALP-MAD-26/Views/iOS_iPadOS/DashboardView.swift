@@ -13,20 +13,51 @@ struct DashboardView: View {
     @Query private var sessions: [ShowerSession]
     @Query private var profiles: [HardwareProfile]
 
+    // Derive heater type from the saved profile
+    private var heaterType: String {
+        profiles.first?.heaterType ?? "None"
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
+
                     // Impact Summary Cards
                     HStack {
-                        ImpactCard(title: "Liters Saved", value: "\(Int(viewModel.totalLitersSaved))L", icon: "drop.fill")
-                        ImpactCard(title: "kWh Saved", value: String(format: "%.2f", viewModel.totalEnergySaved), icon: "bolt.fill")
+                        ImpactCard(
+                            title: "Liters Saved",
+                            value: "\(Int(viewModel.totalLitersSaved))L",
+                            icon: "drop.fill"
+                        )
+
+                        // Switch card based on heater type
+                        if heaterType == "LPG" {
+                            ImpactCard(
+                                title: "LPG Saved",
+                                value: String(format: "%.4f kg", viewModel.totalLPGSaved),
+                                icon: "flame.fill"
+                            )
+                        } else if heaterType == "Electric" {
+                            ImpactCard(
+                                title: "kWh Saved",
+                                value: String(format: "%.2f", viewModel.totalEnergySaved),
+                                icon: "bolt.fill"
+                            )
+                        } else {
+                            // heaterType == "None" — no energy card needed
+                            ImpactCard(
+                                title: "Avg. Duration",
+                                value: viewModel.averageShowerDuration,
+                                icon: "clock.fill"
+                            )
+                        }
                     }
-                    
+
                     Text("Daily Progress").font(.headline)
                     ImpactChart(data: viewModel.chartData)
-                    
-                    // Milestone Counter [2]
+
+                    // Milestone Counter
                     VStack(alignment: .leading) {
                         Text("Environmental Milestone")
                             .font(.subheadline).bold()
@@ -40,11 +71,15 @@ struct DashboardView: View {
                 .padding()
             }
             .navigationTitle("Your Impact")
-            .onAppear {
-                if let profile = profiles.first {
-                    viewModel.calculateImpact(sessions: sessions, profile: profile)
-                }
-            }
+            .onAppear { recalculate() }
+            .onChange(of: profiles) { recalculate() }
+            .onChange(of: sessions) { recalculate() }
+        }
+    }
+
+    private func recalculate() {
+        if let profile = profiles.first {
+            viewModel.calculateImpact(sessions: sessions, profile: profile)
         }
     }
 }

@@ -5,7 +5,6 @@
 //  Created by student on 28/05/26.
 //
 
-
 import Foundation
 import SwiftData
 import Observation
@@ -13,36 +12,55 @@ import Observation
 @Observable
 class DashboardViewModel {
     var totalLitersSaved: Double = 0.0
-    var totalEnergySaved: Double = 0.0 // in kWh
-    var totalLPGSaved: Double = 0.0 // in kg
+    var totalEnergySaved: Double = 0.0  // kWh (Electric heater)
+    var totalLPGSaved: Double = 0.0     // kg  (LPG heater)
     var currentStreak: Int = 0
     var chartData: [DailyImpact] = []
-    
-    // Indonesian Standard Constants [1]
+    var averageShowerDuration: String = "0 min"
+
+    // Indonesian Standard Constants (from proposal)
     private let kwhPerLiter: Double = 0.015
     private let lpgPerLiter: Double = 0.00139
-    private let nationalAverageLiters: Double = 75.0 // ~20 Gallons [2]
+    private let nationalAverageLiters: Double = 75.0 // ~20 Gallons
 
     func calculateImpact(sessions: [ShowerSession], profile: HardwareProfile) {
-        // Variable integrity: Resetting totals before recalculating [3]
-        self.totalLitersSaved = 0.0
-        self.totalEnergySaved = 0.0
-        self.totalLPGSaved = 0.0
+        // Reset totals before recalculating
+        totalLitersSaved = 0.0
+        totalEnergySaved = 0.0
+        totalLPGSaved = 0.0
 
         for session in sessions {
-            // Water Saved Formula: (Baseline - Actual) x LPM [1]
+            // Water Saved Formula: (Baseline - Actual) x LPM
             let litersSaved = (session.baselineDuration - session.actualDuration) * profile.flowRateLPM
             if litersSaved > 0 {
-                self.totalLitersSaved += litersSaved
-                self.totalEnergySaved += litersSaved * kwhPerLiter
-                self.totalLPGSaved += litersSaved * lpgPerLiter
+                totalLitersSaved += litersSaved
+                totalEnergySaved += litersSaved * kwhPerLiter
+                totalLPGSaved    += litersSaved * lpgPerLiter
             }
         }
+
+        // Average shower duration for "None" heater type card
+        if !sessions.isEmpty {
+            let avgMinutes = sessions.map { $0.actualDuration }.reduce(0, +) / Double(sessions.count)
+            averageShowerDuration = String(format: "%.1f min", avgMinutes)
+        }
+
         prepareChartData(sessions: sessions, profile: profile)
     }
 
     private func prepareChartData(sessions: [ShowerSession], profile: HardwareProfile) {
-        // Groups sessions and maps them to DailyImpact for Swift Charts [4]
+        let grouped = Dictionary(grouping: sessions) { session in
+            Calendar.current.startOfDay(for: session.timestamp)
+        }
+
+        chartData = grouped.map { date, daySessions in
+            let liters = daySessions.reduce(0.0) { total, session in
+                let saved = (session.baselineDuration - session.actualDuration) * profile.flowRateLPM
+                return total + max(saved, 0)
+            }
+            return DailyImpact(date: date, litersSaved: liters)
+        }
+        .sorted { $0.date < $1.date }
     }
 }
 
