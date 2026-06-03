@@ -9,58 +9,61 @@ import Foundation
 
 public struct CalculationEngine {
     
+    // MARK: - Constants From Proposal
+    private static let lpgEnergyPerKg: Double = 46000.0 // 46,000 kJ per kg of LPG
+    private static let lpgHeaterEfficiency: Double = 0.85 // 85% efficiency rate
+    private static let electricKWhPerLiter: Double = 0.015 // 0.015 kWh per Liter
+    
     // MARK: - Water Calculations
     
     /// Calculates the total amount of water consumed during a shower session.
-    /// - Parameters:
-    ///   - durationInMinutes: The actual time spent in the shower.
-    ///   - flowRateLPM: The hardware flow rate (Liters Per Minute) from the user's Onboarding Profile.
-    /// - Returns: Total water used in Liters.
     public static func calculateWaterUsed(durationInMinutes: Double, flowRateLPM: Double) -> Double {
-        // Ensure we don't calculate negative time in edge cases
         let validDuration = max(0, durationInMinutes)
         return validDuration * flowRateLPM
     }
     
     /// Calculates the amount of water saved compared to a baseline shower.
-    /// - Parameters:
-    ///   - actualDurationInMinutes: The time spent in the shower.
-    ///   - flowRateLPM: The hardware flow rate (LPM).
-    /// - Returns: Water saved in Liters. Returns 0 if the user took longer than the baseline.
     public static func calculateWaterSaved(actualDurationInMinutes: Double, flowRateLPM: Double) -> Double {
+        // Constants.baselineShowerDurationMinutes is assumed to be defined in your Constants.swift
         guard actualDurationInMinutes < Constants.baselineShowerDurationMinutes else {
-            return 0.0 // No savings if they exceeded the baseline time
+            return 0.0
         }
-        
         let minutesSaved = Constants.baselineShowerDurationMinutes - actualDurationInMinutes
         return minutesSaved * flowRateLPM
     }
     
-    // MARK: - Energy Calculations
+    // MARK: - Precise Thermodynamic Base Function
     
-    /// Calculates the electrical/gas energy saved (in kWh) based on water volume saved.
-    /// Uses the simplified project proposal conversion metric.
-    /// - Parameter litersSaved: The volume of heated water prevented from being used.
-    /// - Returns: Estimated energy saved in kWh.
-    public static func calculateEnergySaved(litersSaved: Double) -> Double {
-        let validLiters = max(0, litersSaved)
-        return validLiters * Constants.energyPerLiterSaved
+    /// Calculates the raw thermal energy required to heat a specific volume of water from Indonesian groundwater (27°C) to standard warm (40°C)[cite: 41, 42].
+    /// - Returns: Thermal energy in kilojoules (kJ).
+    public static func calculateThermalEnergyRequired(waterLiters: Double) -> Double {
+        let deltaT = Constants.targetShowerTemperature - Constants.groundwaterTemperature // 13°C delta [cite: 41, 42]
+        let validDeltaT = max(0, deltaT)
+        let massInKg = max(0, waterLiters) // 1 Liter of water ≈ 1 kg
+        
+        // Q = m * c * ΔT [cite: 41, 42]
+        return massInKg * Constants.waterHeatCapacity * validDeltaT
     }
     
-    /// Calculates the precise thermodynamic energy required to heat the used water.
-    /// - Parameter waterUsedLiters: Total water consumed in Liters (1 Liter of water ≈ 1 kg).
-    /// - Returns: Total thermal energy expended in kilojoules (kJ).
-    public static func calculateThermalEnergyExpended(waterUsedLiters: Double) -> Double {
-        // Formula: Q = m * c * ΔT
-        // Mass (m) = waterUsedLiters (assuming density of water is ~1 kg/L)
-        // Delta T (ΔT) = Target Temp - Groundwater Temp
+    // MARK: - Energy & Gas Routing Matrix
+    
+    /// Calculates how much electrical energy was processed (either saved or consumed) in kWh.
+    /// Returns 0.0 if the user does not use an electric heater.
+    public static func calculateElectricity(waterLiters: Double, hasHeater: Bool, heaterType: String) -> Double {
+        guard hasHeater && heaterType == "Electric" else { return 0.0 }
+        return max(0, waterLiters) * electricKWhPerLiter // Liters x 0.015 kWh
+    }
+    
+    /// Calculates how much LPG mass was processed (either saved or consumed) in kilograms (kg).
+    /// Returns 0.0 if the user does not use an LPG heater.
+    public static func calculateLPG(waterLiters: Double, hasHeater: Bool, heaterType: String) -> Double {
+        guard hasHeater && heaterType == "LPG" else { return 0.0 }
         
-        let deltaT = Constants.targetShowerTemperature - Constants.groundwaterTemperature
-        let validDeltaT = max(0, deltaT) // Prevent negative energy if groundwater is exceptionally hot
+        // Extract raw thermal requirements in kJ [cite: 42]
+        let requiredThermalKJ = calculateThermalEnergyRequired(waterLiters: waterLiters)
         
-        let massInKg = waterUsedLiters
-        
-        let thermalEnergyKJ = massInKg * Constants.waterHeatCapacity * validDeltaT
-        return thermalEnergyKJ
+        // Mass (kg) = Thermal Energy / (Energy Density * Efficiency)
+        let lpgConsumedKg = requiredThermalKJ / (lpgEnergyPerKg * lpgHeaterEfficiency)
+        return max(0, lpgConsumedKg) // This equates to roughly 0.00139 kg per Liter
     }
 }
