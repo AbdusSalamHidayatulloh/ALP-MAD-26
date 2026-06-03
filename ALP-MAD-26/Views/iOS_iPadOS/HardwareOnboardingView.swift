@@ -60,23 +60,18 @@ struct HardwareOnboardingView: View {
                     }
                     
                     // MARK: - Water Heater Configuration
-                    VStack(alignment: .leading, spacing: 15) {
-                        Toggle("I use a Water Heater", isOn: $viewModel.hasWaterHeater)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Water Heater Type")
                             .font(.headline)
-                            .padding(.horizontal)
-                            .tint(.blue)
                         
-                        // Only show the heater type picker if they actually have a heater
-                        if viewModel.hasWaterHeater {
-                            Picker("Heater Type", selection: $viewModel.heaterType) {
-                                ForEach(OnboardingViewModel.HeaterType.allCases, id: \.self) { type in
-                                    Text(type.rawValue).tag(type)
-                                }
+                        Picker("Heater Type", selection: $viewModel.heaterType) {
+                            ForEach(OnboardingViewModel.HeaterType.allCases, id: \.self) { type in
+                                Text(type.rawValue).tag(type)
                             }
-                            .pickerStyle(.segmented)
-                            .padding(.horizontal)
                         }
+                        .pickerStyle(.segmented)
                     }
+                    .padding(.horizontal)
                     
                     Spacer(minLength: 40)
                     
