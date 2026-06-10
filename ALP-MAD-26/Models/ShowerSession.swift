@@ -32,6 +32,7 @@ class ShowerSession {
         )
         
         let computedWaterSaved = CalculationEngine.calculateWaterSaved(
+            baselineDurationMinutes: baselineDuration, // Pass the 20 minutes from the test!
             actualDurationInMinutes: minutesUsed,
             flowRateLPM: hardware.flowRateLPM
         )

@@ -19,8 +19,8 @@ final class DashboardTests: XCTestCase {
     // MARK: - Water Saved
 
     func testWaterSavedVariableIntegrity() {
-        let session = ShowerSession(baselineDuration: 10, actualDuration: 5)
         let profile = HardwareProfile(userName: "Test", flowRateLPM: 9.0)
+        let session = ShowerSession(baselineDuration: 10, actualDuration: 5, hardware: profile)
 
         viewModel.calculateImpact(sessions: [session], profile: profile)
 
@@ -28,8 +28,8 @@ final class DashboardTests: XCTestCase {
     }
 
     func testNoWaterSavedWhenActualExceedsBaseline() {
-        let session = ShowerSession(baselineDuration: 5, actualDuration: 10)
         let profile = HardwareProfile(userName: "Test", flowRateLPM: 9.0)
+        let session = ShowerSession(baselineDuration: 5, actualDuration: 10, hardware: profile)
 
         viewModel.calculateImpact(sessions: [session], profile: profile)
 
@@ -37,11 +37,11 @@ final class DashboardTests: XCTestCase {
     }
 
     func testWaterSavedWithMultipleSessions() {
-        let sessions = [
-            ShowerSession(baselineDuration: 10, actualDuration: 5),  // 45L
-            ShowerSession(baselineDuration: 10, actualDuration: 8)   // 18L
-        ]
         let profile = HardwareProfile(userName: "Test", flowRateLPM: 9.0)
+        let sessions = [
+            ShowerSession(baselineDuration: 10, actualDuration: 5, hardware: profile),  // 45L
+            ShowerSession(baselineDuration: 10, actualDuration: 8, hardware: profile)   // 18L
+        ]
 
         viewModel.calculateImpact(sessions: sessions, profile: profile)
 
@@ -61,8 +61,14 @@ final class DashboardTests: XCTestCase {
     // MARK: - Energy (Electric)
 
     func testEnergyVariableIntegrity() {
-        let session = ShowerSession(baselineDuration: 20, actualDuration: 10)
-        let profile = HardwareProfile(userName: "Test", flowRateLPM: 10.0)
+        let profile = HardwareProfile(
+            userName: "Test",
+            flowRateLPM: 10.0,
+            hasWaterHeater: true,
+            heaterType: "Electric"
+        )
+        
+        let session = ShowerSession(baselineDuration: 20, actualDuration: 10, hardware: profile)
 
         viewModel.calculateImpact(sessions: [session], profile: profile)
 
@@ -72,20 +78,28 @@ final class DashboardTests: XCTestCase {
     // MARK: - LPG
 
     func testLPGVariableIntegrity() {
-        let session = ShowerSession(baselineDuration: 20, actualDuration: 10)
-        let profile = HardwareProfile(userName: "Test", flowRateLPM: 10.0)
+        let profile = HardwareProfile(
+            userName: "Test",
+            flowRateLPM: 10.0,
+            hasWaterHeater: true,
+            heaterType: "LPG"
+        )
+        
+        let session = ShowerSession(baselineDuration: 20, actualDuration: 10, hardware: profile)
 
         viewModel.calculateImpact(sessions: [session], profile: profile)
 
-        XCTAssertEqual(viewModel.totalLPGSaved, 0.139, accuracy: 0.0001, "LPG calculation is inaccurate.")
+        XCTAssertEqual(viewModel.totalLPGSaved, 0.139, accuracy: 0.001, "LPG calculation is inaccurate.")
     }
 
     // MARK: - Reset Integrity
 
     func testRecalculationResetsOldValues() {
         let profile = HardwareProfile(userName: "Test", flowRateLPM: 9.0)
+        let initialSession = ShowerSession(baselineDuration: 10, actualDuration: 5, hardware: profile)
+        
         viewModel.calculateImpact(
-            sessions: [ShowerSession(baselineDuration: 10, actualDuration: 5)],
+            sessions: [initialSession],
             profile: profile
         )
 

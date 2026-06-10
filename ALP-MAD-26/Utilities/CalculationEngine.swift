@@ -23,12 +23,11 @@ public struct CalculationEngine {
     }
     
     /// Calculates the amount of water saved compared to a baseline shower.
-    public static func calculateWaterSaved(actualDurationInMinutes: Double, flowRateLPM: Double) -> Double {
-        // Constants.baselineShowerDurationMinutes is assumed to be defined in your Constants.swift
-        guard actualDurationInMinutes < Constants.baselineShowerDurationMinutes else {
+    public static func calculateWaterSaved(baselineDurationMinutes: Double, actualDurationInMinutes: Double, flowRateLPM: Double) -> Double {
+        guard actualDurationInMinutes < baselineDurationMinutes else {
             return 0.0
         }
-        let minutesSaved = Constants.baselineShowerDurationMinutes - actualDurationInMinutes
+        let minutesSaved = baselineDurationMinutes - actualDurationInMinutes
         return minutesSaved * flowRateLPM
     }
     
