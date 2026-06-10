@@ -29,3 +29,4 @@ public struct DropWatchAttributes: ActivityAttributes {
         self.totalPhases = totalPhases
     }
 }
+

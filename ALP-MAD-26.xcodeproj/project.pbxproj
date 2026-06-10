@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3FBC4C6F2FD9548100E79611 /* DropWatch_Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3FBC4C6E2FD9548100E79611 /* DropWatch_Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3F720F8D2FC7EC8B006BFEC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,17 +25,82 @@
 			remoteGlobalIDString = 3F720F7E2FC7EC8A006BFEC9;
 			remoteInfo = "ALP-MAD-26";
 		};
+		3FBC4C702FD9548100E79611 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F720F772FC7EC8A006BFEC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FBC4C6D2FD9548100E79611;
+			remoteInfo = "DropWatch_Watch Watch App";
+		};
+		3FBC4C7E2FD9548200E79611 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F720F772FC7EC8A006BFEC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FBC4C6D2FD9548100E79611;
+			remoteInfo = "DropWatch_Watch Watch App";
+		};
+		3FBC4C882FD9548200E79611 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F720F772FC7EC8A006BFEC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FBC4C6D2FD9548100E79611;
+			remoteInfo = "DropWatch_Watch Watch App";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3FBC4C922FD9548200E79611 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				3FBC4C6F2FD9548100E79611 /* DropWatch_Watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3F720F7F2FC7EC8A006BFEC9 /* ALP-MAD-26.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ALP-MAD-26.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F720F8C2FC7EC8B006BFEC9 /* ALP-MAD-26Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ALP-MAD-26Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F720F962FC7EC8B006BFEC9 /* ALP-MAD-26UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ALP-MAD-26UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FBC4C692FD9548100E79611 /* DropWatch_Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropWatch_Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FBC4C6E2FD9548100E79611 /* DropWatch_Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DropWatch_Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FBC4C7D2FD9548200E79611 /* DropWatch_Watch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DropWatch_Watch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FBC4C872FD9548200E79611 /* DropWatch_Watch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DropWatch_Watch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3FBC4C9C2FD954EA00E79611 /* Exceptions for "DropWatch_Watch Watch App" folder in "ALP-MAD-26" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WatchOS/WatchRootView.swift,
+				WatchOS/WatchSessionDelegate.swift,
+				WatchOS/WatchSessionSender.swift,
+			);
+			target = 3F720F7E2FC7EC8A006BFEC9 /* ALP-MAD-26 */;
+		};
+		3FBC4CA92FD957F100E79611 /* Exceptions for "ALP-MAD-26" folder in "DropWatch_Watch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Services/WatchConectivityManager.swift,
+				ViewModels/ShowerTimerViewModel.swift,
+				Views/Shared/CircularProgressRing.swift,
+				Views/Shared/TimerView.swift,
+				Views/Views/DropwatchLiveActivityView.swift,
+			);
+			target = 3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3F720F812FC7EC8A006BFEC9 /* ALP-MAD-26 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3FBC4CA92FD957F100E79611 /* Exceptions for "ALP-MAD-26" folder in "DropWatch_Watch Watch App" target */,
+			);
 			path = "ALP-MAD-26";
 			sourceTree = "<group>";
 		};
@@ -43,6 +112,24 @@
 		3F720F992FC7EC8B006BFEC9 /* ALP-MAD-26UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "ALP-MAD-26UITests";
+			sourceTree = "<group>";
+		};
+		3FBC4C722FD9548100E79611 /* DropWatch_Watch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3FBC4C9C2FD954EA00E79611 /* Exceptions for "DropWatch_Watch Watch App" folder in "ALP-MAD-26" target */,
+			);
+			path = "DropWatch_Watch Watch App";
+			sourceTree = "<group>";
+		};
+		3FBC4C802FD9548200E79611 /* DropWatch_Watch Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "DropWatch_Watch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		3FBC4C8A2FD9548200E79611 /* DropWatch_Watch Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "DropWatch_Watch Watch AppUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +156,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FBC4C6B2FD9548100E79611 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C7A2FD9548200E79611 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C842FD9548200E79611 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +186,9 @@
 				3F720F812FC7EC8A006BFEC9 /* ALP-MAD-26 */,
 				3F720F8F2FC7EC8B006BFEC9 /* ALP-MAD-26Tests */,
 				3F720F992FC7EC8B006BFEC9 /* ALP-MAD-26UITests */,
+				3FBC4C722FD9548100E79611 /* DropWatch_Watch Watch App */,
+				3FBC4C802FD9548200E79611 /* DropWatch_Watch Watch AppTests */,
+				3FBC4C8A2FD9548200E79611 /* DropWatch_Watch Watch AppUITests */,
 				3F720F802FC7EC8A006BFEC9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +199,10 @@
 				3F720F7F2FC7EC8A006BFEC9 /* ALP-MAD-26.app */,
 				3F720F8C2FC7EC8B006BFEC9 /* ALP-MAD-26Tests.xctest */,
 				3F720F962FC7EC8B006BFEC9 /* ALP-MAD-26UITests.xctest */,
+				3FBC4C692FD9548100E79611 /* DropWatch_Watch.app */,
+				3FBC4C6E2FD9548100E79611 /* DropWatch_Watch Watch App.app */,
+				3FBC4C7D2FD9548200E79611 /* DropWatch_Watch Watch AppTests.xctest */,
+				3FBC4C872FD9548200E79611 /* DropWatch_Watch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +278,93 @@
 			productReference = 3F720F962FC7EC8B006BFEC9 /* ALP-MAD-26UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		3FBC4C682FD9548100E79611 /* DropWatch_Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FBC4C932FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch" */;
+			buildPhases = (
+				3FBC4C672FD9548100E79611 /* Resources */,
+				3FBC4C922FD9548200E79611 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3FBC4C712FD9548100E79611 /* PBXTargetDependency */,
+			);
+			name = DropWatch_Watch;
+			packageProductDependencies = (
+			);
+			productName = DropWatch_Watch;
+			productReference = 3FBC4C692FD9548100E79611 /* DropWatch_Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FBC4C8F2FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch App" */;
+			buildPhases = (
+				3FBC4C6A2FD9548100E79611 /* Sources */,
+				3FBC4C6B2FD9548100E79611 /* Frameworks */,
+				3FBC4C6C2FD9548100E79611 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3FBC4C722FD9548100E79611 /* DropWatch_Watch Watch App */,
+			);
+			name = "DropWatch_Watch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "DropWatch_Watch Watch App";
+			productReference = 3FBC4C6E2FD9548100E79611 /* DropWatch_Watch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3FBC4C7C2FD9548200E79611 /* DropWatch_Watch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FBC4C962FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch AppTests" */;
+			buildPhases = (
+				3FBC4C792FD9548200E79611 /* Sources */,
+				3FBC4C7A2FD9548200E79611 /* Frameworks */,
+				3FBC4C7B2FD9548200E79611 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3FBC4C7F2FD9548200E79611 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				3FBC4C802FD9548200E79611 /* DropWatch_Watch Watch AppTests */,
+			);
+			name = "DropWatch_Watch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "DropWatch_Watch Watch AppTests";
+			productReference = 3FBC4C7D2FD9548200E79611 /* DropWatch_Watch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3FBC4C862FD9548200E79611 /* DropWatch_Watch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FBC4C992FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch AppUITests" */;
+			buildPhases = (
+				3FBC4C832FD9548200E79611 /* Sources */,
+				3FBC4C842FD9548200E79611 /* Frameworks */,
+				3FBC4C852FD9548200E79611 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3FBC4C892FD9548200E79611 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				3FBC4C8A2FD9548200E79611 /* DropWatch_Watch Watch AppUITests */,
+			);
+			name = "DropWatch_Watch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "DropWatch_Watch Watch AppUITests";
+			productReference = 3FBC4C872FD9548200E79611 /* DropWatch_Watch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -185,6 +387,20 @@
 						CreatedOnToolsVersion = 26.5;
 						TestTargetID = 3F720F7E2FC7EC8A006BFEC9;
 					};
+					3FBC4C682FD9548100E79611 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					3FBC4C6D2FD9548100E79611 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					3FBC4C7C2FD9548200E79611 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 3FBC4C6D2FD9548100E79611;
+					};
+					3FBC4C862FD9548200E79611 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 3FBC4C6D2FD9548100E79611;
+					};
 				};
 			};
 			buildConfigurationList = 3F720F7A2FC7EC8A006BFEC9 /* Build configuration list for PBXProject "ALP-MAD-26" */;
@@ -204,6 +420,10 @@
 				3F720F7E2FC7EC8A006BFEC9 /* ALP-MAD-26 */,
 				3F720F8B2FC7EC8B006BFEC9 /* ALP-MAD-26Tests */,
 				3F720F952FC7EC8B006BFEC9 /* ALP-MAD-26UITests */,
+				3FBC4C682FD9548100E79611 /* DropWatch_Watch */,
+				3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */,
+				3FBC4C7C2FD9548200E79611 /* DropWatch_Watch Watch AppTests */,
+				3FBC4C862FD9548200E79611 /* DropWatch_Watch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +444,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3F720F942FC7EC8B006BFEC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C672FD9548100E79611 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C6C2FD9548100E79611 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C7B2FD9548200E79611 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C852FD9548200E79611 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -254,6 +502,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FBC4C6A2FD9548100E79611 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C792FD9548200E79611 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FBC4C832FD9548200E79611 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -266,6 +535,21 @@
 			isa = PBXTargetDependency;
 			target = 3F720F7E2FC7EC8A006BFEC9 /* ALP-MAD-26 */;
 			targetProxy = 3F720F972FC7EC8B006BFEC9 /* PBXContainerItemProxy */;
+		};
+		3FBC4C712FD9548100E79611 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */;
+			targetProxy = 3FBC4C702FD9548100E79611 /* PBXContainerItemProxy */;
+		};
+		3FBC4C7F2FD9548200E79611 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */;
+			targetProxy = 3FBC4C7E2FD9548200E79611 /* PBXContainerItemProxy */;
+		};
+		3FBC4C892FD9548200E79611 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FBC4C6D2FD9548100E79611 /* DropWatch_Watch Watch App */;
+			targetProxy = 3FBC4C882FD9548200E79611 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -534,6 +818,186 @@
 			};
 			name = Release;
 		};
+		3FBC4C902FD9548200E79611 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DropWatch_Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		3FBC4C912FD9548200E79611 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DropWatch_Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		3FBC4C942FD9548200E79611 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = DropWatch_Watch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3FBC4C952FD9548200E79611 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleDisplayName = DropWatch_Watch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3FBC4C972FD9548200E79611 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DropWatch_Watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DropWatch_Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		3FBC4C982FD9548200E79611 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DropWatch_Watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DropWatch_Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		3FBC4C9A2FD9548200E79611 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "DropWatch_Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		3FBC4C9B2FD9548200E79611 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Angel.DropWatch-Watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "DropWatch_Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -569,6 +1033,42 @@
 			buildConfigurations = (
 				3F720FA72FC7EC8B006BFEC9 /* Debug */,
 				3F720FA82FC7EC8B006BFEC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FBC4C8F2FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FBC4C902FD9548200E79611 /* Debug */,
+				3FBC4C912FD9548200E79611 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FBC4C932FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FBC4C942FD9548200E79611 /* Debug */,
+				3FBC4C952FD9548200E79611 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FBC4C962FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FBC4C972FD9548200E79611 /* Debug */,
+				3FBC4C982FD9548200E79611 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FBC4C992FD9548200E79611 /* Build configuration list for PBXNativeTarget "DropWatch_Watch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FBC4C9A2FD9548200E79611 /* Debug */,
+				3FBC4C9B2FD9548200E79611 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

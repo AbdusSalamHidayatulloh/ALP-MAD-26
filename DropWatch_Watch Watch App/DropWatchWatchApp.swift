@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+@main   
 struct DropWatch_WatchApp: App {
 
     /// Single WCSession owner for the entire Watch app.

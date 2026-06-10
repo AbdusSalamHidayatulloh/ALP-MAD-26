@@ -6,7 +6,7 @@
 //
 
 
-
+#if os(iOS)
 import ActivityKit
 import WidgetKit
 import SwiftUI
@@ -181,3 +181,4 @@ struct DropWatchLiveActivityWidget: Widget {
         }
     }
 }
+#endif

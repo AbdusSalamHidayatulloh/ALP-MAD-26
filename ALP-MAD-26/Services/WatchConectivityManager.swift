@@ -4,12 +4,6 @@
 //
 //  Created by student on 10/06/26.
 //
-//  TARGET MEMBERSHIP: iOS ONLY (ALP-MAD-26)
-//
-//  Receives shower session data from the Apple Watch and surfaces it to the
-//  SwiftUI layer via `pendingSession`. The App layer observes this property
-//  and persists the session into SwiftData (see ALP_MAD_26App.swift).
-//
 
 import WatchConnectivity
 import Observation
@@ -19,12 +13,10 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
 
     // MARK: - Pending Session
 
-    /// Set when a session arrives from the Watch. The App layer observes this,
-    /// saves to SwiftData, then resets it to nil.
     var pendingSession: PendingShowerSession?
 
     struct PendingShowerSession: Equatable {
-        let id              = UUID()   // Used by onChange(of:) to detect new arrivals
+        let id              = UUID()
         let actualDuration:   Double
         let baselineDuration: Double
         let timestamp:        Date
@@ -41,7 +33,7 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         WCSession.default.activate()
     }
 
-    // MARK: - WCSessionDelegate
+    // MARK: - WCSessionDelegate Shared
 
     func session(
         _ session: WCSession,
@@ -53,25 +45,28 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
 
-    // Required on iOS (not watchOS)
+    // MARK: - iOS Specific Delegate Methods
+    // Fixed: Wrapped in an OS directive so the watchOS compiler completely skips them
+    #if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {}
 
     func sessionDidDeactivate(_ session: WCSession) {
         // Re-activate to support users who switch Apple Watch devices
         WCSession.default.activate()
     }
+    #endif
 
-    /// Real-time delivery (phone was reachable when Watch sent)
+    /// Real-time delivery (device was reachable when data was dispatched)
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         handle(message)
     }
 
-    /// Queued delivery (phone was not reachable; Watch used transferUserInfo)
+    /// Queued delivery (device was out of range; background synchronization cached it)
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
         handle(userInfo)
     }
 
-    // MARK: - Private
+    // MARK: - Private Handler
 
     private func handle(_ payload: [String: Any]) {
         guard
@@ -81,6 +76,7 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
             let ts                                   = payload["timestamp"]        as? TimeInterval
         else { return }
 
+        // Ensure state writes execute directly onto the main thread loop
         DispatchQueue.main.async {
             self.pendingSession = PendingShowerSession(
                 actualDuration:   actual,
