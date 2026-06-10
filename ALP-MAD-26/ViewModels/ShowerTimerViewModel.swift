@@ -2,9 +2,6 @@
 //  ShowerTimerViewModel.swift
 //  ALP-MAD-26
 //
-//  Created by student on 10/06/26.
-//
-//  TARGET MEMBERSHIP: iOS (ALP-MAD-26) + watchOS (ALP-MAD-26 WatchKit Extension)
 //
 
 import Foundation
@@ -26,7 +23,7 @@ struct ShowerPhase: Identifiable {
 @Observable
 class ShowerTimerViewModel {
 
-    // MARK: Phases (from proposal: 1 min → 2 min → 1.5 min)
+    // MARK: Phases (Rinse 1 min → Wash 2 min → Finish 1.5 min)
     let phases: [ShowerPhase] = [
         ShowerPhase(name: "Rinse",  durationSeconds: 60),
         ShowerPhase(name: "Wash",   durationSeconds: 120),
@@ -34,11 +31,11 @@ class ShowerTimerViewModel {
     ]
 
     // MARK: State
-    var currentPhaseIndex:      Int    = 0
-    var timeRemainingInPhase:   Double = 60   // mirrors phases[0].durationSeconds
-    var totalElapsedSeconds:    Double = 0
-    var isRunning:              Bool   = false
-    var isComplete:             Bool   = false
+    var currentPhaseIndex:    Int    = 0
+    var timeRemainingInPhase: Double = 60   // mirrors phases[0].durationSeconds
+    var totalElapsedSeconds:  Double = 0
+    var isRunning:            Bool   = false
+    var isComplete:           Bool   = false
 
     /// Called on the main thread when all phases finish. Receives actual duration in minutes.
     var onSessionComplete: ((Double) -> Void)?
@@ -76,8 +73,20 @@ class ShowerTimerViewModel {
     func start() {
         guard !isRunning && !isComplete else { return }
         isRunning = true
-        // Only fire start haptic on a completely fresh session
-        if totalElapsedSeconds == 0 { fireHaptic(.start) }
+
+        // Only fire start haptic + Live Activity on a completely fresh session
+        if totalElapsedSeconds == 0 {
+            fireHaptic(.start)
+            #if os(iOS)
+            let endTime = Date().addingTimeInterval(phases[currentPhaseIndex].durationSeconds)
+            ActivityKitManager.shared.startLiveActivity(
+                totalPhases:  phases.count,
+                initialPhase: phases[currentPhaseIndex].name,
+                endTime:      endTime
+            )
+            #endif
+        }
+
         scheduleTimer()
     }
 
@@ -85,6 +94,9 @@ class ShowerTimerViewModel {
         isRunning = false
         timer?.invalidate()
         timer = nil
+        // Note: the Live Activity countdown continues ticking on the Lock Screen
+        // during a pause (it's a date-based timer). This is acceptable for v1;
+        // a future improvement could update phaseEndTime to reflect the pause offset.
     }
 
     func reset() {
@@ -93,6 +105,11 @@ class ShowerTimerViewModel {
         timeRemainingInPhase = phases[0].durationSeconds
         totalElapsedSeconds  = 0
         isComplete           = false
+
+        // Safety: end any dangling Live Activity (e.g. user resets mid-session).
+        #if os(iOS)
+        ActivityKitManager.shared.endLiveActivity()
+        #endif
     }
 
     // MARK: - Private Timer
@@ -120,10 +137,23 @@ class ShowerTimerViewModel {
 
     private func advancePhase() {
         let next = currentPhaseIndex + 1
+
         if next < phases.count {
             currentPhaseIndex    = next
             timeRemainingInPhase = phases[next].durationSeconds
             fireHaptic(.start)
+
+            // Update the Live Activity to the new phase.
+            // currentPhaseIndex is 0-based internally; we pass (next + 1) to keep
+            // the Live Activity's index 1-based (matching startLiveActivity's initial value of 1).
+            #if os(iOS)
+            let endTime = Date().addingTimeInterval(phases[next].durationSeconds)
+            ActivityKitManager.shared.updateLiveActivity(
+                phaseName: phases[next].name,
+                index:     next + 1,
+                endTime:   endTime
+            )
+            #endif
         } else {
             completeSession()
         }
@@ -131,16 +161,21 @@ class ShowerTimerViewModel {
 
     private func completeSession() {
         timer?.invalidate()
-        timer    = nil
-        isRunning = false
-        isComplete = true
+        timer             = nil
+        isRunning         = false
+        isComplete        = true
         timeRemainingInPhase = 0
         fireHaptic(.success)
+
+        #if os(iOS)
+        ActivityKitManager.shared.endLiveActivity()
+        #endif
+
         let actualMinutes = totalElapsedSeconds / 60.0
         onSessionComplete?(actualMinutes)
     }
 
-    // MARK: - Haptics (watchOS only; iOS haptics can be layered in via UIFeedbackGenerator if desired)
+    // MARK: - Haptics (watchOS only; iOS haptics via UIFeedbackGenerator if desired)
 
     private enum HapticEvent { case start, directionUp, success }
 
