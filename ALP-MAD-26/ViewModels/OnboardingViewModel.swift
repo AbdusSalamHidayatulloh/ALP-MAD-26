@@ -31,9 +31,9 @@ class OnboardingViewModel {
     
     // Enum mapping visual cards to your actual math baselines
     enum ShowerheadType: String, CaseIterable {
-        case eco = "eco"
-        case standard = "standard"
-        case rainfall = "rainfall"
+        case eco = "Eco"
+        case standard = "Standard"
+        case rainfall = "Rainfall"
         
         var displayName: String {
             switch self {
@@ -46,10 +46,9 @@ class OnboardingViewModel {
         // This transfers the visual selection into the mathematical flow rate
         var flowRateLPM: Double {
             switch self {
-            case .eco: return 5.5
-            case .standard: return 9.0
-            case .rainfall: return 12.0
-            }
+            case .eco: return Constants.FlowRate.eco
+            case .standard: return Constants.FlowRate.standard
+            case .rainfall: return Constants.FlowRate.highFlow            }
         }
     }
     

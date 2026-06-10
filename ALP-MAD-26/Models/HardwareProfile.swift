@@ -14,12 +14,14 @@ class HardwareProfile {
     var userName: String
     var flowRateLPM: Double
     var hasWaterHeater: Bool
-    var heaterType: String // e.g., "Electric" or "LPG"
+    var heaterType: String
+    var isActive : Bool
     
-    init(userName: String, flowRateLPM: Double, hasWaterHeater: Bool = true, heaterType: String = "Electric") {
+    init(userName: String, flowRateLPM: Double, hasWaterHeater: Bool = true, heaterType: String = "Electric", isActive: Bool = true) {
         self.userName = userName
         self.flowRateLPM = flowRateLPM
         self.hasWaterHeater = hasWaterHeater
         self.heaterType = heaterType
+        self.isActive = isActive
     }
 }
